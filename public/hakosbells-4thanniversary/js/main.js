@@ -7,7 +7,7 @@ const gachaData = [
         title: "おすすめ配信タイトル",
         description: "配信の説明文がここに入ります",
         illustration: "placeholder1.jpg",
-        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        youtubeUrl: "https://www.youtube.com/watch?v=s66rF4tstI4",
         colorTheme: "red"
     },
     {
@@ -15,7 +15,7 @@ const gachaData = [
         title: "おすすめ配信タイトル", 
         description: "配信の説明文がここに入ります",
         illustration: "placeholder2.jpg",
-        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        youtubeUrl: "https://www.youtube.com/watch?v=s66rF4tstI4",
         colorTheme: "orange"
     },
     {
@@ -23,7 +23,7 @@ const gachaData = [
         title: "おすすめ配信タイトル",
         description: "配信の説明文がここに入ります",
         illustration: "placeholder3.jpg", 
-        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        youtubeUrl: "https://www.youtube.com/watch?v=s66rF4tstI4",
         colorTheme: "pink"
     },
     {
@@ -31,7 +31,7 @@ const gachaData = [
         title: "おすすめ配信タイトル",
         description: "配信の説明文がここに入ります",
         illustration: "placeholder4.jpg",
-        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        youtubeUrl: "https://www.youtube.com/watch?v=s66rF4tstI4",
         colorTheme: "coral"
     },
     {
@@ -39,7 +39,7 @@ const gachaData = [
         title: "おすすめ配信タイトル",
         description: "配信の説明文がここに入ります",
         illustration: "placeholder5.jpg",
-        youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        youtubeUrl: "https://www.youtube.com/watch?v=s66rF4tstI4",
         colorTheme: "coral"
     }
 ];
