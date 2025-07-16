@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base-color: #fe4b74;
+  --accent-color: #ff9cb4;
+  --base-text-color: #ffffff;
+  --accent-text-color: #000000;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-rounded), "Hiragino Maru Gothic ProN", "Rounded Mplus 1c", "Hiragino Sans", "Meiryo",
+      sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  .pop-font {
+    font-family: var(--font-pop), "Hiragino Maru Gothic ProN", "Rounded Mplus 1c", "Hiragino Sans", "Meiryo", sans-serif;
+  }
+}
+
+/* Custom styles for dynamic colors */
+.dynamic-bg-base {
+  background-color: var(--base-color);
+}
+
+.dynamic-bg-accent {
+  background-color: var(--accent-color);
+}
+
+.dynamic-text-base {
+  color: var(--base-color);
+}
+
+.dynamic-text-accent {
+  color: var(--accent-color);
+}
+
+.dynamic-text-base-contrast {
+  color: var(--base-text-color);
+}
+
+.dynamic-text-accent-contrast {
+  color: var(--accent-text-color);
+}
+
+/* Smooth transitions for color changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom button hover effects */
+.btn-dynamic:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* Menu card hover effects */
+.menu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Pop font specific styles */
+.menu-item-name {
+  font-family: var(--font-pop), "Hiragino Maru Gothic ProN", "Rounded Mplus 1c", "Hiragino Sans", "Meiryo", sans-serif;
+  font-size: 1.2rem;
+}
+
+.menu-price {
+  font-family: var(--font-pop), "Hiragino Maru Gothic ProN", "Rounded Mplus 1c", "Hiragino Sans", "Meiryo", sans-serif;
+  font-weight: bold;
+}
+
+.nav-item {
+  font-family: var(--font-pop), "Hiragino Maru Gothic ProN", "Rounded Mplus 1c", "Hiragino Sans", "Meiryo", sans-serif;
+}
+
+/* Text shadow for better readability on background images */
+.text-shadow {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.text-shadow-lg {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .mobile-padding {
+    padding: 1rem;
+  }
+
+  .mobile-text {
+    font-size: 0.9rem;
+  }
+}
