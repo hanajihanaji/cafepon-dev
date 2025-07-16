@@ -100,6 +100,15 @@ let currentGacha = null;
 
 // ランダムガチャ実行
 function executeGacha() {
+    // GA4イベント送信
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'gacha_button_click', {
+            'event_category': 'engagement',
+            'event_label': 'gacha_spin',
+            'value': 1
+        });
+    }
+    
     // ローディング画面表示
     showLoadingScreen();
     
@@ -107,6 +116,16 @@ function executeGacha() {
     setTimeout(() => {
         const randomIndex = Math.floor(Math.random() * gachaData.length);
         currentGacha = gachaData[randomIndex];
+        
+        // GA4イベント送信（ガチャ結果）
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'gacha_result_view', {
+                'event_category': 'engagement',
+                'event_label': currentGacha.colorTheme,
+                'gacha_id': currentGacha.id,
+                'value': 1
+            });
+        }
         
         // UI更新
         updateGachaDisplay(currentGacha);
@@ -219,6 +238,17 @@ function playGachaAnimation() {
 function goToYoutube() {
     if (!currentGacha) return;
     
+    // GA4イベント送信
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'youtube_button_click', {
+            'event_category': 'engagement',
+            'event_label': 'youtube_navigation',
+            'gacha_id': currentGacha.id,
+            'gacha_theme': currentGacha.colorTheme,
+            'value': 1
+        });
+    }
+    
     // 直接YouTube遷移（スマホアプリ対応）
     window.open(currentGacha.youtubeUrl, '_blank');
 }
@@ -261,6 +291,19 @@ function hideLoadingScreen() {
 // 初期化
 function init() {
     console.log('Init function started');
+    
+    // モバイルアクセス判定
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // GA4イベント送信（デバイス判定）
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view_device', {
+            'event_category': 'engagement',
+            'event_label': isMobile ? 'mobile' : 'desktop',
+            'device_type': isMobile ? 'mobile' : 'desktop',
+            'value': 1
+        });
+    }
     
     // 初回ガチャ選択（表示前に実行）
     const randomIndex = Math.floor(Math.random() * gachaData.length);
