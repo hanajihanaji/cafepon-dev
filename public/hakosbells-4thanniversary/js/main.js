@@ -306,6 +306,5 @@ function init() {
 // ページ読み込み完了後に初期化
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOMContentLoaded triggered');
-    alert('JavaScript is working!');
     init();
 });
