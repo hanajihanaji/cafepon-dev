@@ -219,14 +219,8 @@ function playGachaAnimation() {
 function goToYoutube() {
     if (!currentGacha) return;
     
-    // ローディング画面表示
-    showLoadingScreen();
-    
-    // 1.5秒後にYouTube遷移
-    setTimeout(() => {
-        window.open(currentGacha.youtubeUrl, '_blank');
-        hideLoadingScreen();
-    }, 1500);
+    // 直接YouTube遷移（スマホアプリ対応）
+    window.open(currentGacha.youtubeUrl, '_blank');
 }
 
 // ローディング画面表示/非表示
