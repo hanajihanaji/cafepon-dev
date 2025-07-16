@@ -19,8 +19,8 @@ export function middleware(request: NextRequest) {
     const [user, pwd] = atob(authValue).split(':');
 
     // 環境変数から認証情報を取得
-    const validUser = process.env.BASIC_AUTH_USER || 'admin';
-    const validPassword = process.env.BASIC_AUTH_PASSWORD || 'cafepon2025';
+    const validUser = process.env.BASIC_AUTH_USER || 'cafepon';
+    const validPassword = process.env.BASIC_AUTH_PASSWORD || 'cafeponpass';
 
     // 認証情報の確認
     if (user === validUser && pwd === validPassword) {
