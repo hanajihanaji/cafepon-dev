@@ -98,6 +98,13 @@ const colorThemes = {
 
 let currentGacha = null;
 
+// YouTube動画ID抽出関数
+function extractVideoId(url) {
+    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : 'unknown';
+}
+
 // ランダムガチャ実行
 function executeGacha() {
     // GA4イベント送信
@@ -238,13 +245,18 @@ function playGachaAnimation() {
 function goToYoutube() {
     if (!currentGacha) return;
     
-    // GA4イベント送信
+    // GA4イベント送信（詳細トラッキング）
     if (typeof gtag !== 'undefined') {
         gtag('event', 'youtube_button_click', {
             'event_category': 'engagement',
             'event_label': 'youtube_navigation',
             'gacha_id': currentGacha.id,
             'gacha_theme': currentGacha.colorTheme,
+            'gacha_title': currentGacha.title,
+            'youtube_url': currentGacha.youtubeUrl,
+            'youtube_video_id': extractVideoId(currentGacha.youtubeUrl),
+            'custom_parameter_1': currentGacha.title, // レポート用
+            'custom_parameter_2': currentGacha.youtubeUrl, // レポート用
             'value': 1
         });
     }
