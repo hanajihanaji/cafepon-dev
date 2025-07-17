@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Handle hakos-baelz-4thanniversary asset requests
+# Redirect requests for assets that should be in the subdirectory
+RewriteCond %{REQUEST_URI} ^/(css|js|assets)/ [NC]
+RewriteCond %{REQUEST_URI} !^/hakos-baelz-4thanniversary/
+RewriteRule ^(.*)$ /hakos-baelz-4thanniversary/$1 [L,R=301]
+
+# Set proper MIME types
+AddType application/javascript .js
+AddType text/css .css
+AddType image/png .png
+AddType image/jpeg .jpg
+AddType image/gif .gif

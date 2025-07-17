@@ -1,19 +1,6 @@
+# Local directory settings
 RewriteEngine On
-
-# Set correct base directory
 RewriteBase /hakos-baelz-4thanniversary/
-
-# Handle requests that come to the root domain for our assets
-# This catches requests like https://www.cafepon.com/css/style.css
-# and redirects them to the correct subdirectory
-RewriteCond %{HTTP_HOST} ^(www\.)?cafepon\.com$ [NC]
-RewriteCond %{REQUEST_URI} ^/(css|js|assets)/ [NC]
-RewriteRule ^(.*)$ /hakos-baelz-4thanniversary/$1 [L,R=301]
-
-# Alternative approach: if the above doesn't work, try this
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_URI} ^/(css|js|assets)/ [NC]
-# RewriteRule ^(.*)$ /hakos-baelz-4thanniversary/$1 [L]
 
 # Set proper MIME types
 AddType application/javascript .js
