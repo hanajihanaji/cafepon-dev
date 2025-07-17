@@ -1,12 +1,13 @@
 RewriteEngine On
 
-# Force correct base URL resolution
+# Set correct base directory
 RewriteBase /hakos-baelz-4thanniversary/
 
-# Ensure files are served from correct directory
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /hakos-baelz-4thanniversary/$1 [L]
+# Redirect requests for root-level assets to the correct subdirectory
+# For example: /css/style.css -> /hakos-baelz-4thanniversary/css/style.css
+RewriteCond %{REQUEST_URI} ^/(css|js|assets)/ [NC]
+RewriteCond %{REQUEST_URI} !^/hakos-baelz-4thanniversary/
+RewriteRule ^(.*)$ /hakos-baelz-4thanniversary/$1 [L,R=301]
 
 # Set proper MIME types
 AddType application/javascript .js
