@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Arial, sans-serif;
     background: 
@@ -55,14 +60,10 @@ body {
 }
 
 .logo-image {
-    max-width: 350px;
+    max-width: 600px;
     width: 90%;
     height: auto;
-    border-radius: 20px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    background: white;
-    padding: 1.5rem;
-    border: 3px solid #D72517;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
     animation: logoFadeIn 1s ease-out;
 }
 
@@ -83,10 +84,12 @@ body {
 .main-content {
     max-width: 480px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0 1rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+    top: 0;
 }
 
 .hidden {
@@ -99,13 +102,28 @@ body {
 
 .header {
     text-align: center;
-    padding: 2rem 0;
+    padding: 0;
     color: white;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
 }
 
-.title-placeholder {
+.title-container {
     text-align: center;
-    margin: 1rem 0;
+    margin: 0;
+    position: relative;
+    overflow: visible;
+    width: 100%;
+}
+
+.title-image {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .title-image-placeholder {
@@ -134,7 +152,7 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 1rem 0;
 }
 
@@ -236,7 +254,7 @@ body {
     gap: 1rem;
 }
 
-.gacha-btn, .youtube-btn {
+.gacha-btn, .youtube-btn, .survey-btn {
     padding: 1.5rem 2.5rem;
     border: none;
     border-radius: 25px;
@@ -252,7 +270,7 @@ body {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.gacha-btn::before, .youtube-btn::before {
+.gacha-btn::before, .youtube-btn::before, .survey-btn::before {
     content: '';
     position: absolute;
     top: 0;
@@ -263,7 +281,7 @@ body {
     transition: left 0.6s;
 }
 
-.gacha-btn:hover::before, .youtube-btn:hover::before {
+.gacha-btn:hover::before, .youtube-btn:hover::before, .survey-btn:hover::before {
     left: 100%;
 }
 
@@ -308,7 +326,23 @@ body {
         0 5px 15px rgba(255, 107, 107, 0.3);
 }
 
-.gacha-btn:active, .youtube-btn:active {
+.survey-btn {
+    background: linear-gradient(135deg, #ff938d 0%, #ffb3b3 50%, #ff7a7a 100%);
+    color: white;
+    box-shadow: 
+        0 8px 25px rgba(255, 147, 141, 0.3),
+        0 3px 8px rgba(255, 179, 179, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.survey-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 12px 35px rgba(255, 147, 141, 0.4),
+        0 5px 15px rgba(255, 179, 179, 0.3);
+}
+
+.gacha-btn:active, .youtube-btn:active, .survey-btn:active {
     transform: translateY(-1px) scale(0.98);
     transition: all 0.1s ease;
 }
@@ -342,7 +376,7 @@ body {
         gap: 0.8rem;
     }
     
-    .gacha-btn, .youtube-btn {
+    .gacha-btn, .youtube-btn, .survey-btn {
         padding: 0.8rem 1.5rem;
         font-size: 1rem;
     }
