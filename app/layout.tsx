@@ -5,7 +5,7 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: "Cafe PON",
-  description: "ポップでカラフルなカフェ、Cafe PON",
+  description: "推しと、いっしょに。Cafe PON",
     generator: 'v0.dev'
 }
 

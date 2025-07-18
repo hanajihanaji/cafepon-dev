@@ -6,6 +6,9 @@
 - **リポジトリ**: https://github.com/hanajihanaji/cafepon-website.git
 - **デプロイ方法**: Git push による自動デプロイ
 - **メインブランチ**: master
+- **本番URL**: 
+  - https://cafepon.com
+  - https://www.cafepon.com
 
 ### デプロイ手順
 ```bash
@@ -27,14 +30,21 @@ git push origin master
 
 ### 対象ファイル構成
 ```
-public/hakos-baelz-4thanniversary/
-├── assets/
-│   └── logos/
-├── css/
-│   └── style.css
-├── index.html
-└── js/
-    └── main.js
+# Next.jsアプリケーション構成
+app/
+├── hakos-baelz-4thanniversary/
+│   └── page.tsx                    # キャンペーンサイト（Reactページ）
+├── layout.tsx                      # グローバルレイアウト
+├── page.tsx                        # メインサイト
+└── menu/
+    └── page.tsx                    # メニューページ
+
+public/
+└── hakos-baelz-4thanniversary/
+    └── assets/
+        └── logos/
+            ├── logo-color.png      # ローディング用ロゴ
+            └── project-title.png   # ヘッダータイトル画像
 ```
 
 ### 関連コマンド
@@ -56,4 +66,4 @@ git remote -v
 ```
 
 ### 最終更新
-- 2025-07-17: アンケートボタン追加機能のデプロイルール確認
+- 2025-07-18: キャンペーンサイトをNext.jsページに移行、EXCELデータ反映、カラーテーマ拡張（5→7）
