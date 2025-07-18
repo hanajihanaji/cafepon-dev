@@ -8,8 +8,8 @@ declare global {
   function gtag(...args: any[]): void;
 }
 
-// ガチャデータ
-const gachaData = [
+// 配信データ
+const streamData = [
   {
     id: 1,
     title: "≪3D SHOWCASE≫ ƎNOZ N∩Ⅎ ƎH⊥ O⊥ ƎWOϽ˥ƎM #RatIdol3D",
@@ -79,8 +79,8 @@ const colorThemes = {
     backgroundPosition: '0 0, 0 40px, 0 0',
     cardBorder: '#ff938d',
     illustrationBorder: '#ff938d',
-    gachaBtn: 'linear-gradient(135deg, #fe3a2d 0%, #ff6b6b 50%, #D72517 100%)',
-    gachaBtnShadow: 'rgba(254, 58, 45, 0.3)'
+    shuffleBtn: 'linear-gradient(135deg, #fe3a2d 0%, #ff6b6b 50%, #D72517 100%)',
+    shuffleBtnShadow: 'rgba(254, 58, 45, 0.3)'
   },
   orange: {
     background: `
@@ -91,8 +91,8 @@ const colorThemes = {
     backgroundPosition: '0 0, 0 40px, 0 0',
     cardBorder: '#ffab73',
     illustrationBorder: '#ffab73',
-    gachaBtn: 'linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #d4541a 100%)',
-    gachaBtnShadow: 'rgba(255, 107, 53, 0.3)'
+    shuffleBtn: 'linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #d4541a 100%)',
+    shuffleBtnShadow: 'rgba(255, 107, 53, 0.3)'
   },
   pink: {
     background: `
@@ -103,8 +103,8 @@ const colorThemes = {
     backgroundPosition: '0 0, 0 40px, 0 0',
     cardBorder: '#ffa8cc',
     illustrationBorder: '#ffa8cc',
-    gachaBtn: 'linear-gradient(135deg, #ff6b9d 0%, #ff8fb3 50%, #d15687 100%)',
-    gachaBtnShadow: 'rgba(255, 107, 157, 0.3)'
+    shuffleBtn: 'linear-gradient(135deg, #ff6b9d 0%, #ff8fb3 50%, #d15687 100%)',
+    shuffleBtnShadow: 'rgba(255, 107, 157, 0.3)'
   },
   coral: {
     background: `
@@ -115,8 +115,8 @@ const colorThemes = {
     backgroundPosition: '0 0, 0 40px, 0 0',
     cardBorder: '#fab1a0',
     illustrationBorder: '#fab1a0',
-    gachaBtn: 'linear-gradient(135deg, #ff7675 0%, #fd92a0 50%, #e84393 100%)',
-    gachaBtnShadow: 'rgba(255, 118, 117, 0.3)'
+    shuffleBtn: 'linear-gradient(135deg, #ff7675 0%, #fd92a0 50%, #e84393 100%)',
+    shuffleBtnShadow: 'rgba(255, 118, 117, 0.3)'
   },
   purple: {
     background: `
@@ -127,8 +127,8 @@ const colorThemes = {
     backgroundPosition: '0 0, 0 40px, 0 0',
     cardBorder: '#c084fc',
     illustrationBorder: '#c084fc',
-    gachaBtn: 'linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #7c3aed 100%)',
-    gachaBtnShadow: 'rgba(168, 85, 247, 0.3)'
+    shuffleBtn: 'linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #7c3aed 100%)',
+    shuffleBtnShadow: 'rgba(168, 85, 247, 0.3)'
   },
   crimson: {
     background: `
@@ -139,21 +139,35 @@ const colorThemes = {
     backgroundPosition: '0 0, 0 40px, 0 0',
     cardBorder: '#f87171',
     illustrationBorder: '#f87171',
-    gachaBtn: 'linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #b91c1c 100%)',
-    gachaBtnShadow: 'rgba(220, 38, 38, 0.3)'
+    shuffleBtn: 'linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #b91c1c 100%)',
+    shuffleBtnShadow: 'rgba(220, 38, 38, 0.3)'
   }
 };
 
 
 export default function HakosBaelzPage() {
-  const [currentGacha, setCurrentGacha] = useState(gachaData[0]);
+  const [currentStream, setCurrentStream] = useState(streamData[0]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isGachaAnimating, setIsGachaAnimating] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
 
   // 初期化
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * gachaData.length);
-    setCurrentGacha(gachaData[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * streamData.length);
+    setCurrentStream(streamData[randomIndex]);
+    
+    // QRコード経由かURLパラメータで判定
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('source') || 'direct';
+    
+    // GA4でページ流入元を記録
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_entry', {
+        'event_category': 'navigation',
+        'event_label': source,
+        'source_type': source === 'qr' ? 'qr_code' : source === 'direct' ? 'direct_access' : 'other',
+        'value': 1
+      });
+    }
     
     // 2秒後にローディング終了
     const timer = setTimeout(() => {
@@ -163,39 +177,40 @@ export default function HakosBaelzPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // ガチャ実行
-  const executeGacha = () => {
-    if (isGachaAnimating) return;
+  // 配信シャッフル実行
+  const shuffleStream = () => {
+    if (isShuffling) return;
     
-    setIsGachaAnimating(true);
+    setIsShuffling(true);
     setIsLoading(true);
     
     // GA4イベント送信
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'gacha_button_click', {
+      gtag('event', 'stream_shuffle_click', {
         'event_category': 'engagement',
-        'event_label': 'gacha_spin',
+        'event_label': 'stream_shuffle',
         'value': 1
       });
     }
     
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * gachaData.length);
-      const newGacha = gachaData[randomIndex];
-      setCurrentGacha(newGacha);
+      const randomIndex = Math.floor(Math.random() * streamData.length);
+      const newStream = streamData[randomIndex];
+      setCurrentStream(newStream);
       
-      // GA4イベント送信（ガチャ結果）
+      // GA4イベント送信（シャッフル結果）
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'gacha_result_view', {
+        gtag('event', 'stream_shuffle_result', {
           'event_category': 'engagement',
-          'event_label': newGacha.colorTheme,
-          'gacha_id': newGacha.id,
+          'event_label': newStream.title,
+          'stream_id': newStream.id,
+          'color_theme': newStream.colorTheme,
           'value': 1
         });
       }
       
       setIsLoading(false);
-      setIsGachaAnimating(false);
+      setIsShuffling(false);
     }, 1500);
   };
 
@@ -205,18 +220,18 @@ export default function HakosBaelzPage() {
     if (typeof gtag !== 'undefined') {
       gtag('event', 'youtube_button_click', {
         'event_category': 'engagement',
-        'event_label': 'youtube_navigation',
-        'gacha_id': currentGacha.id,
-        'gacha_theme': currentGacha.colorTheme,
+        'event_label': currentStream.title,
+        'stream_id': currentStream.id,
+        'youtube_url': currentStream.youtubeUrl,
         'value': 1
       });
     }
     
-    window.open(currentGacha.youtubeUrl, '_blank');
+    window.open(currentStream.youtubeUrl, '_blank');
   };
 
   // 現在のテーマカラー
-  const currentTheme = colorThemes[currentGacha.colorTheme];
+  const currentTheme = colorThemes[currentStream.colorTheme];
 
   return (
     <>
@@ -291,15 +306,15 @@ export default function HakosBaelzPage() {
               </div>
             </header>
 
-            {/* ガチャコンテナ */}
+            {/* 配信紹介コンテナ */}
             <main className="flex-1 flex justify-center items-start py-4 px-4">
               <div 
                 className="w-full max-w-md p-10 rounded-3xl text-center relative overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, #ffffff 0%, #fef7f7 100%)',
-                  boxShadow: `0 15px 35px ${currentTheme.gachaBtnShadow}, 0 5px 15px rgba(255, 147, 141, 0.2)`,
+                  boxShadow: `0 15px 35px ${currentTheme.shuffleBtnShadow}, 0 5px 15px rgba(255, 147, 141, 0.2)`,
                   border: `3px solid ${currentTheme.cardBorder}`,
-                  animation: isGachaAnimating ? 'none' : 'slideUp 0.6s ease-out'
+                  animation: isShuffling ? 'none' : 'slideUp 0.6s ease-out'
                 }}
               >
                 {/* シマー効果 */}
@@ -322,16 +337,16 @@ export default function HakosBaelzPage() {
                     }}
                   >
                     <div className="text-base text-gray-600 text-center z-10 bg-white bg-opacity-80 p-3 rounded-lg border border-dashed border-gray-300">
-                      イラスト #{currentGacha.id}
+                      イラスト #{currentStream.id}
                       <br />
-                      <small className="text-sm">{currentGacha.illustration}</small>
+                      <small className="text-sm">{currentStream.illustration}</small>
                     </div>
                   </div>
                 </div>
                 
-                {/* ガチャ情報 */}
+                {/* 配信情報 */}
                 <div className="mb-8">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">{currentGacha.title}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-gray-800">{currentStream.title}</h3>
                   <p 
                     className="text-base text-gray-700 leading-relaxed font-medium" 
                     style={{
@@ -341,7 +356,7 @@ export default function HakosBaelzPage() {
                       lineHeight: '1.6'
                     }}
                   >
-                    {currentGacha.description}
+                    {currentStream.description}
                   </p>
                 </div>
 
@@ -370,25 +385,25 @@ export default function HakosBaelzPage() {
                   </button>
 
                   <button 
-                    onClick={executeGacha}
-                    disabled={isGachaAnimating}
+                    onClick={shuffleStream}
+                    disabled={isShuffling}
                     className="px-10 py-6 rounded-3xl text-lg font-bold cursor-pointer transition-all duration-500 text-white relative overflow-hidden disabled:opacity-70"
                     style={{
-                      background: currentTheme.gachaBtn,
-                      boxShadow: `0 8px 25px ${currentTheme.gachaBtnShadow}, 0 3px 8px ${currentTheme.gachaBtnShadow}`,
+                      background: currentTheme.shuffleBtn,
+                      boxShadow: `0 8px 25px ${currentTheme.shuffleBtnShadow}, 0 3px 8px ${currentTheme.shuffleBtnShadow}`,
                       border: '2px solid rgba(255, 255, 255, 0.3)',
                       textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
                     }}
                     onMouseEnter={(e) => {
-                      if (!isGachaAnimating) {
+                      if (!isShuffling) {
                         e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
-                        e.currentTarget.style.boxShadow = `0 12px 35px ${currentTheme.gachaBtnShadow}, 0 5px 15px ${currentTheme.gachaBtnShadow}`;
+                        e.currentTarget.style.boxShadow = `0 12px 35px ${currentTheme.shuffleBtnShadow}, 0 5px 15px ${currentTheme.shuffleBtnShadow}`;
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (!isGachaAnimating) {
+                      if (!isShuffling) {
                         e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                        e.currentTarget.style.boxShadow = `0 8px 25px ${currentTheme.gachaBtnShadow}, 0 3px 8px ${currentTheme.gachaBtnShadow}`;
+                        e.currentTarget.style.boxShadow = `0 8px 25px ${currentTheme.shuffleBtnShadow}, 0 3px 8px ${currentTheme.shuffleBtnShadow}`;
                       }
                     }}
                   >
@@ -397,7 +412,17 @@ export default function HakosBaelzPage() {
                   </button>
 
                   <button 
-                    onClick={() => window.open('https://forms.gle/kbcXyxmzYnUE5s9E9', '_blank')}
+                    onClick={() => {
+                      // GA4イベント送信
+                      if (typeof gtag !== 'undefined') {
+                        gtag('event', 'survey_button_click', {
+                          'event_category': 'engagement',
+                          'event_label': 'survey_navigation',
+                          'value': 1
+                        });
+                      }
+                      window.open('https://forms.gle/kbcXyxmzYnUE5s9E9', '_blank');
+                    }}
                     className="px-10 py-6 rounded-3xl text-lg font-bold cursor-pointer transition-all duration-500 text-white relative overflow-hidden"
                     style={{
                       background: 'linear-gradient(135deg, #ff938d 0%, #ffb3b3 50%, #ff7a7a 100%)',
