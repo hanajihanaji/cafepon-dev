@@ -372,7 +372,7 @@ export default function HakosBaelzPage() {
                   </div>
                   
                   {/* ミニハコスのイラスト（フレームをはみ出して手前に配置） */}
-                  <div className="absolute w-20 h-20 z-30" style={{ bottom: '-30px', right: '-30px' }}>
+                  <div className="absolute w-16 h-16 z-30" style={{ bottom: '-8px', right: '-8px' }}>
                     <img 
                       src="/images/hakostest.png"
                       alt="Mini Hakos"
