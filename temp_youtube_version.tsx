@@ -341,54 +341,52 @@ export default function HakosBaelzPage() {
                 />
 
                 {/* イラストコンテナ */}
-                <div className="mb-10 relative flex justify-center" style={{ transform: 'translateX(-10%)' }}>
-                  <div className="relative">
-                    <div 
-                      className="w-60 bg-gray-50 flex justify-center items-center relative overflow-hidden"
-                      style={{
-                        aspectRatio: '16/9',
-                        border: `3px solid ${currentTheme.illustrationBorder}`,
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                <div className="mb-6 relative">
+                  <div 
+                    className="w-full bg-gray-50 rounded-2xl flex justify-center items-center relative overflow-hidden"
+                    style={{
+                      aspectRatio: '16/9',
+                      border: `3px solid ${currentTheme.illustrationBorder}`,
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                    }}
+                  >
+                    <img 
+                      src={getYouTubeThumbnailUrl(currentStream.youtubeUrl)}
+                      alt={currentStream.title}
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const fallbackDiv = target.nextElementSibling as HTMLElement;
+                        if (fallbackDiv) fallbackDiv.style.display = 'flex';
                       }}
+                    />
+                    <div 
+                      className="absolute inset-0 flex justify-center items-center text-base text-gray-600 text-center z-10 bg-white bg-opacity-80 rounded-lg border border-dashed border-gray-300 m-4"
+                      style={{ display: 'none' }}
                     >
-                      <img 
-                        src={getYouTubeThumbnailUrl(currentStream.youtubeUrl)}
-                        alt={currentStream.title}
-                        className="w-full h-full object-contain"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          const fallbackDiv = target.nextElementSibling as HTMLElement;
-                          if (fallbackDiv) fallbackDiv.style.display = 'flex';
-                        }}
-                      />
-                      <div 
-                        className="absolute inset-0 flex justify-center items-center text-base text-gray-600 text-center z-10 bg-white bg-opacity-80 rounded-lg border border-dashed border-gray-300 m-4"
-                        style={{ display: 'none' }}
-                      >
-                        イラスト #{currentStream.id}
-                        <br />
-                        <small className="text-sm">{currentStream.illustration}</small>
-                      </div>
+                      イラスト #{currentStream.id}
+                      <br />
+                      <small className="text-sm">{currentStream.illustration}</small>
                     </div>
-                    
-                    {/* ミニハコスのイラスト（フレームをはみ出して手前に配置） */}
-                    <div className="absolute w-32 h-32 z-30" style={{ bottom: '-50px', right: '-85px' }}>
-                      <img 
-                        src="/images/hakostest.png"
-                        alt="Mini Hakos"
-                        className="w-full h-full object-contain"
-                        style={{
-                          filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
-                          transform: 'rotate(-5deg)'
-                        }}
-                      />
-                    </div>
+                  </div>
+                  
+                  {/* ミニハコスのイラスト（フレームをはみ出して手前に配置） */}
+                  <div className="absolute w-20 h-35 z-30" style={{ bottom: '-30px', right: '-30px' }}>
+                    <img 
+                      src="/images/hakostest.png"
+                      alt="Mini Hakos"
+                      className="w-full h-full object-contain"
+                      style={{
+                        filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                        transform: 'rotate(-5deg)'
+                      }}
+                    />
                   </div>
                 </div>
                 
                 {/* 配信情報 */}
-                <div className="mb-8 pt-4">
+                <div className="mb-8">
                   <h3 className="text-xl font-bold mb-2 text-gray-800">{currentStream.title}</h3>
                   <p 
                     className="text-base text-gray-700 leading-relaxed font-medium" 

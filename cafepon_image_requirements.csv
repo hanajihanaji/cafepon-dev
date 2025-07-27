@@ -1,0 +1,78 @@
+カテゴリ,商品名,商品名英語,価格,現在の画像パス,推奨ファイル名,優先度
+お食事,とりもも唐揚げ,Deep Fried Chicken Thigh,900,/images/karaage.jpg,karaage.jpg,Medium
+お食事,ナポリタン,Neapolitan Spaghetti,850,/images/napolitan.jpg,napolitan.jpg,Medium
+お食事,豚生姜焼き,Pork and Ginger Stir-fry,700,/images/buta_shogayaki.jpg,buta_shogayaki.jpg,Medium
+お食事,カレーパスタ,Curry Spaghetti,850,/images/curry_pasta.jpg,curry_pasta.jpg,Medium
+お食事,チキン南蛮,Chicken Nanban Rice Bowl,950,/images/chicken_nanban.jpg,chicken_nanban.jpg,Medium
+お食事,豚焼肉丼,Grilled Pork Rice Bowl,900,/images/buta_yakiniku_don.jpg,buta_yakiniku_don.jpg,Medium
+お食事,炙りチーズカレー,Grilled Cheese Curry,850,/images/aburi_cheese_curry.jpg,aburi_cheese_curry.jpg,Medium
+お食事,ウインナーカレー,Vienna Sausage Curry,850,/images/wiener_curry.jpg,wiener_curry.jpg,Medium
+お食事,フライドチキンカレー,Fried Chicken Curry,850,/images/fried_chicken_curry.jpg,fried_chicken_curry.jpg,Medium
+お食事,チキンかつカレー,Chicken Cutlet Curry,950,/images/chicken_katsu_curry.jpg,chicken_katsu_curry.jpg,Medium
+お食事,プルドチキンカレー,Pulled Chicken Curry,900,/images/pulled-chicken-curry.jpg,pulled_chicken_curry.jpg,Medium
+お食事,野菜カレー,Broccoli Curry,850,/images/yasai_curry.jpg,yasai_curry.jpg,Medium
+ドリンク,ブレンドコーヒー,Blend Coffee,550,/images/placeholder-drink.svg,blend_coffee.jpg,High
+ドリンク,アイスコーヒー,Iced Coffee,600,/images/placeholder-drink.svg,iced_coffee.jpg,High
+ドリンク,エスプレッソ,Espresso,600,/images/placeholder-drink.svg,espresso.jpg,High
+ドリンク,紅茶,Black Tea,550,/images/placeholder-drink.svg,kocha.jpg,High
+ドリンク,アイス紅茶,Iced Black Tea,600,/images/placeholder-drink.svg,iced_kocha.jpg,High
+ドリンク,カフェラテ,Café Latte,630,/images/placeholder-drink.svg,cafe_latte.jpg,High
+ドリンク,アイスカフェラテ,Iced Café Latte,680,/images/placeholder-drink.svg,iced_cafe_latte.jpg,High
+ドリンク,カフェオレ,Café au Lait,650,/images/placeholder-drink.svg,cafe_ole.jpg,High
+ドリンク,アイスカフェオレ,Iced Café au Lait,730,/images/placeholder-drink.svg,iced_cafe_ole.jpg,High
+ドリンク,抹茶ラテ,Matcha Latte,650,/images/placeholder-drink.svg,matcha_latte.jpg,High
+ドリンク,アイス抹茶ラテ,Iced Matcha Latte,730,/images/placeholder-drink.svg,iced_matcha_latte.jpg,High
+ドリンク,ほうじ茶ラテ,Hojicha Latte,650,/images/placeholder-drink.svg,hojicha_latte.jpg,High
+ドリンク,アイスほうじ茶ラテ,Iced Hojicha Latte,730,/images/placeholder-drink.svg,iced_hojicha_latte.jpg,High
+ドリンク,紅茶ラテ,Black Tea Latte,730,/images/placeholder-drink.svg,kocha_latte.jpg,High
+ドリンク,アイス紅茶ミルクティー,Iced Black Tea Milk Tea,730,/images/placeholder-drink.svg,iced_kocha_milk_tea.jpg,High
+ドリンク,PON手仕込みココア,Handmade Cocoa,650,/images/placeholder-drink.svg,pon_cocoa.jpg,High
+ドリンク,PON手仕込みアイスココア,Handmade Iced Cocoa,680,/images/placeholder-drink.svg,pon_iced_cocoa.jpg,High
+ドリンク,大阪LOVEのミックスジュース,Osaka LOVE Mixed Juice,700,/images/placeholder-drink.svg,osaka_love_mix_juice.jpg,High
+ドリンク,クリームソーダー,Ice Cream Soda,750,/images/placeholder-drink.svg,cream_soda.jpg,High
+ドリンク,濃厚チョコバナナジュース,Rich Chocolate Banana Juice,750,/images/placeholder-drink.svg,choco_banana_juice.jpg,High
+ドリンク,アサヒスーパードライゼロ,Non-Alcoholic Beer,500,/images/placeholder-drink.svg,asahi_zero.jpg,High
+ドリンク,クラフトコーラ,Craft Cola,700,/images/placeholder-drink.svg,craft_cola.jpg,High
+ドリンク,クラフトジンジャーエール,Craft Ginger Ale,700,/images/placeholder-drink.svg,craft_ginger_ale.jpg,High
+ドリンク,コーヒーフロート,Coffee Float,750,/images/placeholder-drink.svg,coffee_float.jpg,High
+ドリンク,一日分の野菜ジュース,Vegetable Juice,580,/images/placeholder-drink.svg,yasai_juice.jpg,High
+ドリンク,シークヮーサーソーダ,Shekwasha Soda,550,/images/placeholder-drink.svg,shikuwasa_soda.jpg,High
+ドリンク,カルピス,Calpis,550,/images/placeholder-drink.svg,calpis.jpg,High
+ドリンク,ミルクdeカルピス,Calpis with Milk,600,/images/placeholder-drink.svg,milk_calpis.jpg,High
+ドリンク,丸ごと生レモンジュース,Whole Fresh Lemon Juice,780,/images/placeholder-drink.svg,nama_lemon_juice.jpg,High
+ドリンク,ブルダックモン香るコーヒーゼリーオレ,Cardamom Coffee Jelly Latte,800,/images/placeholder-drink.svg,cardamom_coffee_jelly_ole.jpg,High
+スイーツ,紅茶のシフォンケーキ,Tea Chiffon Cake,480,/images/kocha_chiffon_cake.jpg,kocha_chiffon_cake.jpg,Medium
+スイーツ,出来たてポップコーン,Freshly Popped Popcorn,400,/images/placeholder-sweets.svg,dekitate_popcorn.jpg,High
+スイーツ,カルダモン香るコーヒーゼリー,Coffee Jelly with Cardamom,480,/images/placeholder-sweets.svg,cardamom_coffee_jelly.jpg,High
+スイーツ,バナナケーキ,Banana Cake,450,/images/placeholder-sweets.svg,banana_cake.jpg,High
+スイーツ,あったか大学いもアイス,Warm Sweet Potato with Ice Cream,480,/images/attaka_daigaku_imo_ice.jpg,attaka_daigaku_imo_ice.jpg,Medium
+スイーツ,さたぱんびん,Okinawan Donut,250,/images/placeholder-sweets.svg,sata_panbin.jpg,High
+軽食,バタートースト,Butter Toast,450,/images/placeholder-lightfood.svg,butter_toast.jpg,High
+軽食,AZUKIジャムサンド,Anko Berry Jam Hot Sandwich,650,/images/placeholder-lightfood.svg,azuki_jam_sandwich.jpg,High
+軽食,アップルカスタードホットサンド,Apple Custard Hot Sandwich,650,/images/placeholder-lightfood.svg,apple_custard_hot_sandwich.jpg,High
+軽食,グリルチーズホットサンド,Grilled Cheese Sandwich,700,/images/grill_cheese_hot_sandwich.jpg,grill_cheese_hot_sandwich.jpg,Medium
+軽食,海老カツタルタルサンド,Shrimp Cutlet Sandwich,700,/images/ebi_katsu_tartar_sandwich.jpg,ebi_katsu_tartar_sandwich.jpg,Medium
+軽食,ピザトースト,Pizza Toast,700,/images/pizza_toast.jpg,pizza_toast.jpg,Medium
+軽食,チキンカツサンド,Chicken Cutlet Sandwich,700,/images/placeholder-lightfood.svg,chicken_katsu_sandwich.jpg,High
+軽食,南国チーズトースト,Corned Beef Hash and Cheese Toast,900,/images/placeholder-lightfood.svg,nangoku_cheese_toast.jpg,High
+おつまみ,お好み焼き串,Okonomiyaki Skewers,480,/images/okonomiyaki_kushi.jpg,okonomiyaki_kushi.jpg,Medium
+おつまみ,わかめの唐揚げ,Crispy Fried Wakame Seaweed,400,/images/wakame_karaage.jpg,wakame_karaage.jpg,Medium
+おつまみ,ポテトフライ,French Fries,450,/images/placeholder-food.svg,potato_fry.jpg,High
+おつまみ,チキン南蛮,Chicken Nanban,700,/images/placeholder-food.svg,chicken_nanban_otsumami.jpg,High
+おつまみ,なんこつ唐揚げ,Deep-fried Chicken Knee Cartilage,450,/images/nankotsu_karaage.jpg,nankotsu_karaage.jpg,Medium
+おつまみ,カリカリタコ焼き,Fried Takoyaki,480,/images/placeholder-food.svg,karikari_takoyaki.jpg,High
+おつまみ,おつまみ唐揚げ,Fried Chicken Thigh,500,/images/placeholder-food.svg,otsumami_karaage.jpg,High
+おつまみ,PON特製やきそば,Special Yakisoba,850,/images/pon_tokuseitaku_yakisoba.jpg,pon_tokuseitaku_yakisoba.jpg,Medium
+トップページ,メイン背景画像,Cafe Interior,0,/images/cafe-interior.avif,cafe_interior.avif,Medium
+トップページ,アバウト画像,Cafe PON Food,0,/images/foodpic10133983(1).jpg,foodpic10133983_1.jpg,Medium
+トップページ,人気メニュー1,PON特製ラテ,680,アイコンのみ,pon_tokuseitaku_latte.jpg,High
+トップページ,人気メニュー2,ふわふわパンケーキ,850,アイコンのみ,fuwa_fuwa_pancake.jpg,High
+トップページ,人気メニュー3,チキンカレー,950,アイコンのみ,chicken_curry.jpg,High
+トップページ,ギャラリー画像1,Gallery Photo 1,0,プレースホルダー,gallery_1.jpg,High
+トップページ,ギャラリー画像2,Gallery Photo 2,0,プレースホルダー,gallery_2.jpg,High
+トップページ,ギャラリー画像3,Gallery Photo 3,0,プレースホルダー,gallery_3.jpg,High
+トップページ,ギャラリー画像4,Gallery Photo 4,0,プレースホルダー,gallery_4.jpg,High
+トップページ,ギャラリー画像5,Gallery Photo 5,0,プレースホルダー,gallery_5.jpg,High
+トップページ,ギャラリー画像6,Gallery Photo 6,0,プレースホルダー,gallery_6.jpg,High
+トップページ,ギャラリー画像7,Gallery Photo 7,0,プレースホルダー,gallery_7.jpg,High
+トップページ,ギャラリー画像8,Gallery Photo 8,0,プレースホルダー,gallery_8.jpg,High
