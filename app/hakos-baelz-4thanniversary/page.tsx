@@ -477,10 +477,11 @@ export default function HakosBaelzPage() {
                         <small className="text-sm">{currentStream.illustration}</small>
                       </div>
 
-                      {/* クリック可能インジケーター */}
-                      <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full opacity-80 pointer-events-none">
-                        ▶️ クリックで視聴
-                      </div>
+                    </div>
+                    
+                    {/* クリック可能インジケーター（画像外に配置） */}
+                    <div className="absolute -bottom-6 left-0 bg-red-600 text-white text-xs px-3 py-1 rounded-full opacity-90 pointer-events-none shadow-md">
+                      ▶️ クリックで視聴
                     </div>
                     
                     {/* ミニハコスのイラスト（フレームをはみ出して手前に配置） */}
