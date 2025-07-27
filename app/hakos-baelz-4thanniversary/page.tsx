@@ -162,6 +162,8 @@ export default function HakosBaelzPage() {
   const [currentStream, setCurrentStream] = useState(streamData[0]);
   const [isLoading, setIsLoading] = useState(true);
   const [isShuffling, setIsShuffling] = useState(false);
+  const [pageStartTime] = useState(Date.now());
+  const [shuffleCount, setShuffleCount] = useState(0);
 
   // 初期化
   useEffect(() => {
@@ -190,18 +192,64 @@ export default function HakosBaelzPage() {
     return () => clearTimeout(timer);
   }, []);
 
+  // 滞在時間トラッキング
+  useEffect(() => {
+    const timePoints = [10, 30, 60, 120]; // 秒
+    const timers = timePoints.map(seconds => 
+      setTimeout(() => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'page_engagement_time', {
+            'event_category': 'engagement',
+            'engagement_time_seconds': seconds,
+            'current_stream_id': currentStream.id,
+            'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+            'shuffle_count': shuffleCount,
+            'value': seconds
+          });
+        }
+      }, seconds * 1000)
+    );
+
+    return () => timers.forEach(clearTimeout);
+  }, [currentStream.id, shuffleCount]);
+
+  // 離脱意図検知
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      const timeOnPage = Math.floor((Date.now() - pageStartTime) / 1000);
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_exit_intent', {
+          'event_category': 'navigation',
+          'time_on_page': timeOnPage,
+          'last_stream_viewed': currentStream.id,
+          'last_stream_title': currentStream.title,
+          'completed_shuffle_count': shuffleCount,
+          'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+          'value': timeOnPage
+        });
+      }
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [currentStream.id, currentStream.title, shuffleCount, pageStartTime]);
+
   // 配信シャッフル実行
   const shuffleStream = () => {
     if (isShuffling) return;
     
     setIsShuffling(true);
     setIsLoading(true);
+    setShuffleCount(prev => prev + 1);
     
-    // GA4イベント送信
+    // GA4イベント送信（拡張）
     if (typeof gtag !== 'undefined') {
       gtag('event', 'stream_shuffle_click', {
         'event_category': 'engagement',
         'event_label': 'stream_shuffle',
+        'current_stream_id': currentStream.id,
+        'shuffle_sequence': shuffleCount + 1,
+        'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
         'value': 1
       });
     }
@@ -211,13 +259,16 @@ export default function HakosBaelzPage() {
       const newStream = streamData[randomIndex];
       setCurrentStream(newStream);
       
-      // GA4イベント送信（シャッフル結果）
+      // GA4イベント送信（シャッフル結果・拡張）
       if (typeof gtag !== 'undefined') {
         gtag('event', 'stream_shuffle_result', {
           'event_category': 'engagement',
           'event_label': newStream.title,
           'stream_id': newStream.id,
           'color_theme': newStream.colorTheme,
+          'shuffle_sequence': shuffleCount + 1,
+          'previous_stream_id': currentStream.id,
+          'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
           'value': 1
         });
       }
@@ -229,13 +280,17 @@ export default function HakosBaelzPage() {
 
   // YouTube遷移
   const goToYoutube = () => {
-    // GA4イベント送信
+    // GA4イベント送信（拡張）
     if (typeof gtag !== 'undefined') {
       gtag('event', 'youtube_button_click', {
         'event_category': 'engagement',
         'event_label': currentStream.title,
         'stream_id': currentStream.id,
         'youtube_url': currentStream.youtubeUrl,
+        'color_theme': currentStream.colorTheme,
+        'shuffle_count_before_click': shuffleCount,
+        'time_to_click': Math.floor((Date.now() - pageStartTime) / 1000),
+        'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
         'value': 1
       });
     }
@@ -355,7 +410,32 @@ export default function HakosBaelzPage() {
                         src={getYouTubeThumbnailUrl(currentStream.youtubeUrl)}
                         alt={currentStream.title}
                         className="w-full h-full object-contain"
+                        onLoad={() => {
+                          // GA4イベント送信（画像読み込み成功）
+                          if (typeof gtag !== 'undefined') {
+                            gtag('event', 'image_load_status', {
+                              'event_category': 'performance',
+                              'event_label': 'thumbnail_success',
+                              'stream_id': currentStream.id,
+                              'image_status': 'success',
+                              'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+                              'value': 1
+                            });
+                          }
+                        }}
                         onError={(e) => {
+                          // GA4イベント送信（画像読み込み失敗）
+                          if (typeof gtag !== 'undefined') {
+                            gtag('event', 'image_load_status', {
+                              'event_category': 'performance',
+                              'event_label': 'thumbnail_error',
+                              'stream_id': currentStream.id,
+                              'image_status': 'error',
+                              'youtube_url': currentStream.youtubeUrl,
+                              'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+                              'value': 0
+                            });
+                          }
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';
                           const fallbackDiv = target.nextElementSibling as HTMLElement;
@@ -456,11 +536,15 @@ export default function HakosBaelzPage() {
 
                   <button 
                     onClick={() => {
-                      // GA4イベント送信
+                      // GA4イベント送信（拡張）
                       if (typeof gtag !== 'undefined') {
                         gtag('event', 'survey_button_click', {
                           'event_category': 'engagement',
                           'event_label': 'survey_navigation',
+                          'current_stream_id': currentStream.id,
+                          'shuffle_count_before_survey': shuffleCount,
+                          'time_to_survey': Math.floor((Date.now() - pageStartTime) / 1000),
+                          'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
                           'value': 1
                         });
                       }
