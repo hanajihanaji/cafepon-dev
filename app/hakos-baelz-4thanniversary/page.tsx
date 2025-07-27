@@ -278,16 +278,32 @@ export default function HakosBaelzPage() {
     }, 1500);
   };
 
-  // YouTube遷移
-  const goToYoutube = () => {
-    // GA4イベント送信（拡張）
+  // YouTube遷移（統合関数）
+  const goToYoutube = (clickSource: 'button' | 'thumbnail') => {
+    // GA4イベント送信（クリック元別）
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'youtube_button_click', {
+      // 個別イベント（A/Bテスト用）
+      gtag('event', clickSource === 'button' ? 'youtube_button_click' : 'youtube_thumbnail_click', {
         'event_category': 'engagement',
         'event_label': currentStream.title,
         'stream_id': currentStream.id,
         'youtube_url': currentStream.youtubeUrl,
         'color_theme': currentStream.colorTheme,
+        'shuffle_count_before_click': shuffleCount,
+        'time_to_click': Math.floor((Date.now() - pageStartTime) / 1000),
+        'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+        'click_source': clickSource,
+        'value': 1
+      });
+
+      // 統合イベント（全体コンバージョン測定用）
+      gtag('event', 'youtube_conversion', {
+        'event_category': 'conversion',
+        'event_label': 'stream_view_intent',
+        'stream_id': currentStream.id,
+        'youtube_url': currentStream.youtubeUrl,
+        'color_theme': currentStream.colorTheme,
+        'click_source': clickSource,
         'shuffle_count_before_click': shuffleCount,
         'time_to_click': Math.floor((Date.now() - pageStartTime) / 1000),
         'device_type': /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
@@ -399,12 +415,22 @@ export default function HakosBaelzPage() {
                 <div className="mb-10 relative flex justify-center" style={{ transform: 'translateX(-10%)' }}>
                   <div className="relative">
                     <div 
-                      className="w-60 bg-gray-50 flex justify-center items-center relative overflow-hidden"
+                      className="w-60 bg-gray-50 flex justify-center items-center relative overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-105"
                       style={{
                         aspectRatio: '16/9',
                         border: `3px solid ${currentTheme.illustrationBorder}`,
                         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
                       }}
+                      onClick={() => goToYoutube('thumbnail')}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          goToYoutube('thumbnail');
+                        }
+                      }}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`${currentStream.title}の配信を視聴する`}
                     >
                       <img 
                         src={getYouTubeThumbnailUrl(currentStream.youtubeUrl)}
@@ -450,6 +476,11 @@ export default function HakosBaelzPage() {
                         <br />
                         <small className="text-sm">{currentStream.illustration}</small>
                       </div>
+
+                      {/* クリック可能インジケーター */}
+                      <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full opacity-80 pointer-events-none">
+                        ▶️ クリックで視聴
+                      </div>
                     </div>
                     
                     {/* ミニハコスのイラスト（フレームをはみ出して手前に配置） */}
@@ -486,7 +517,7 @@ export default function HakosBaelzPage() {
                 {/* アクションボタン */}
                 <div className="flex flex-col gap-4">
                   <button 
-                    onClick={goToYoutube}
+                    onClick={() => goToYoutube('button')}
                     className="px-10 py-6 rounded-3xl text-lg font-bold cursor-pointer transition-all duration-500 text-white relative overflow-hidden"
                     style={{
                       background: 'linear-gradient(135deg, #ff0000 0%, #ff4444 50%, #cc0000 100%)',
