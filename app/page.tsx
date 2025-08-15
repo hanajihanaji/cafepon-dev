@@ -117,14 +117,28 @@ export default function HomePage() {
               MENU
             </Link>
             <div className="flex items-center space-x-2">
-              <Instagram
-                className="w-5 h-5 hover:opacity-80 cursor-pointer transition-opacity"
-                style={{ color: colors.baseTextColor }}
-              />
-              <XIcon
-                className="w-5 h-5 hover:opacity-80 cursor-pointer transition-opacity"
-                style={{ color: colors.baseTextColor }}
-              />
+              <a
+                href="https://www.instagram.com/cafe_pon_kandakaji3/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Instagram
+                  className="w-5 h-5"
+                  style={{ color: colors.baseTextColor }}
+                />
+              </a>
+              <a
+                href="https://x.com/aenbien_pon"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <XIcon
+                  className="w-5 h-5"
+                  style={{ color: colors.baseTextColor }}
+                />
+              </a>
             </div>
           </div>
         </nav>
@@ -249,6 +263,7 @@ export default function HomePage() {
             </div>
             <div className="text-center mt-6">
               <Button
+                asChild
                 variant="outline"
                 style={{
                   borderColor: colors.baseColor,
@@ -256,8 +271,14 @@ export default function HomePage() {
                 }}
                 className="hover:bg-opacity-10 backdrop-blur-sm transition-all duration-300"
               >
-                <XIcon className="w-4 h-4 mr-2" />
-                マスターのX
+                <a
+                  href="https://x.com/aenbien_pon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <XIcon className="w-4 h-4 mr-2" />
+                  マスターのX
+                </a>
               </Button>
             </div>
           </div>
@@ -373,16 +394,17 @@ export default function HomePage() {
                 </div>
               </div>
               <div>
-                <div
-                  className="w-full h-64 rounded-lg flex items-center justify-center text-lg backdrop-blur-sm transition-all duration-300"
-                  style={{
-                    backgroundColor: `${colors.accentColor}D9`,
-                    color: colors.accentTextColor,
-                  }}
-                >
-                  Google Maps
-                  <br />
-                  (地図エリア)
+                <div className="w-full h-64 rounded-lg overflow-hidden shadow-lg">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d620.2246829043711!2d139.7713219394533!3d35.6943858958073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188c0244ae2755%3A0x83ae34ff8a14ca38!2z44CSMTAxLTAwNDUg5p2x5Lqs6YO95Y2D5Luj55Sw5Yy656We55Sw6Y2b5Ya255S677yT5LiB55uu77yW4oiS77yU!5e0!3m2!1sja!2sjp!4v1755235426138!5m2!1sja!2sjp"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Cafe PON - 東京都千代田区神田鍛冶町３丁目６−４"
+                  ></iframe>
                 </div>
               </div>
             </div>
@@ -397,14 +419,28 @@ export default function HomePage() {
       >
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center space-x-6 mb-4">
-            <Instagram
-              className="w-6 h-6 hover:opacity-80 cursor-pointer transition-opacity"
-              style={{ color: colors.baseTextColor }}
-            />
-            <XIcon
-              className="w-6 h-6 hover:opacity-80 cursor-pointer transition-opacity"
-              style={{ color: colors.baseTextColor }}
-            />
+            <a
+              href="https://www.instagram.com/cafe_pon_kandakaji3/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+            >
+              <Instagram
+                className="w-6 h-6"
+                style={{ color: colors.baseTextColor }}
+              />
+            </a>
+            <a
+              href="https://x.com/aenbien_pon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+            >
+              <XIcon
+                className="w-6 h-6"
+                style={{ color: colors.baseTextColor }}
+              />
+            </a>
           </div>
           <p style={{ color: colors.baseTextColor }} className="text-sm">
             © 2024 Cafe PON. All rights reserved.

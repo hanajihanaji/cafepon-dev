@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "singularName": "category",
+    "pluralName": "categories",
+    "displayName": "Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "collectionOptions": {
+    "defaultSortAttribute": "displayOrder",
+    "defaultSortOrder": "ASC"
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "nameEn": {
+      "type": "string",
+      "required": false
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    },
+    "menuItems": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::menu-item.menu-item",
+      "mappedBy": "category"
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 999,
+      "required": false
+    },
+    "isSpecialEvent": {
+      "type": "boolean",
+      "default": false
+    },
+    "eventUrl": {
+      "type": "string",
+      "required": false
+    },
+    "eventButtonText": {
+      "type": "string",
+      "required": false
+    },
+    "isLimitedTimeActive": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "limitedTimeStartDate": {
+      "type": "datetime",
+      "required": false
+    },
+    "limitedTimeEndDate": {
+      "type": "datetime",
+      "required": false
+    }
+  }
+}

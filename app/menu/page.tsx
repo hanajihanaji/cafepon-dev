@@ -11,6 +11,8 @@ import { Logo } from "@/components/logo"
 import { getContrastTextColor, darkenColor } from "@/lib/color-utils"
 import { BackgroundPattern } from "@/components/background-pattern"
 import { XIcon } from "@/components/x-icon"
+import ImagePlaceholder from "@/components/image-placeholder"
+import { CMSMenu } from "./cms-menu"
 
 // Menu data extracted from the images - reordered: Food, Drinks, Others
 const menuData = {
@@ -25,55 +27,55 @@ const menuData = {
       name: "ナポリタン",
       nameEn: "Neapolitan Spaghetti",
       price: 850,
-      image: "/images/placeholder-food.svg",
+      image: "/images/napolitan.jpg",
     },
     {
       name: "豚生姜焼き",
       nameEn: "Pork and Ginger Stir-fry",
       price: 700,
-      image: "/images/placeholder-food.svg",
+      image: "/images/buta_shogayaki.jpg",
     },
     {
       name: "カレーパスタ",
       nameEn: "Curry Spaghetti",
       price: 850,
-      image: "/images/placeholder-food.svg",
+      image: "/images/curry_pasta.jpg",
     },
     {
       name: "チキン南蛮",
       nameEn: "Chicken Nanban Rice Bowl",
       price: 950,
-      image: "/images/placeholder-food.svg",
+      image: "/images/chicken_nanban.jpg",
     },
     {
       name: "豚焼肉丼",
       nameEn: "Grilled Pork Rice Bowl",
       price: 900,
-      image: "/images/placeholder-food.svg",
+      image: "/images/buta_yakiniku_don.jpg",
     },
     {
       name: "炙りチーズカレー",
       nameEn: "Grilled Cheese Curry",
       price: 850,
-      image: "/images/placeholder-food.svg",
+      image: "/images/aburi_cheese_curry.jpg",
     },
     {
       name: "ウインナーカレー",
       nameEn: "Vienna Sausage Curry",
       price: 850,
-      image: "/images/placeholder-food.svg",
+      image: "/images/wiener_curry.jpg",
     },
     {
       name: "フライドチキンカレー",
       nameEn: "Fried Chicken Curry",
       price: 850,
-      image: "/images/placeholder-food.svg",
+      image: "/images/fried_chicken_curry.jpg",
     },
     {
       name: "チキンかつカレー",
       nameEn: "Chicken Cutlet Curry",
       price: 950,
-      image: "/images/placeholder-food.svg",
+      image: "/images/chicken_katsu_curry.jpg",
     },
     {
       name: "プルドチキンカレー",
@@ -85,7 +87,7 @@ const menuData = {
       name: "野菜カレー",
       nameEn: "Broccoli Curry",
       price: 850,
-      image: "/images/placeholder-food.svg",
+      image: "/images/yasai_curry.jpg",
     },
   ],
   drinks: [
@@ -276,7 +278,7 @@ const menuData = {
       name: "紅茶のシフォンケーキ",
       nameEn: "Tea Chiffon Cake",
       price: 480,
-      image: "/images/placeholder-sweets.svg",
+      image: "/images/kocha_chiffon_cake.jpg",
       category: "スイーツ",
     },
     {
@@ -304,7 +306,7 @@ const menuData = {
       name: "あったか大学いもアイス",
       nameEn: "Warm Sweet Potato with Ice Cream",
       price: 480,
-      image: "/images/placeholder-sweets.svg",
+      image: "/images/attaka_daigaku_imo_ice.jpg",
       category: "スイーツ",
     },
     {
@@ -340,21 +342,21 @@ const menuData = {
       name: "グリルチーズホットサンド",
       nameEn: "Grilled Cheese Sandwich",
       price: 700,
-      image: "/images/placeholder-lightfood.svg",
+      image: "/images/grill_cheese_hot_sandwich.jpg",
       category: "軽食",
     },
     {
       name: "海老カツタルタルサンド",
       nameEn: "Shrimp Cutlet Sandwich",
       price: 700,
-      image: "/images/placeholder-lightfood.svg",
+      image: "/images/ebi_katsu_tartar_sandwich.jpg",
       category: "軽食",
     },
     {
       name: "ピザトースト",
       nameEn: "Pizza Toast",
       price: 700,
-      image: "/images/placeholder-lightfood.svg",
+      image: "/images/pizza_toast.jpg",
       category: "軽食",
     },
     {
@@ -383,7 +385,7 @@ const menuData = {
       name: "わかめの唐揚げ",
       nameEn: "Crispy Fried Wakame Seaweed",
       price: 400,
-      image: "/images/placeholder-food.svg",
+      image: "/images/wakame_karaage.jpg",
       category: "おつまみ",
     },
     {
@@ -404,14 +406,14 @@ const menuData = {
       name: "なんこつ唐揚げ",
       nameEn: "Deep-fried Chicken Knee Cartilage",
       price: 450,
-      image: "/images/placeholder-food.svg",
+      image: "/images/nankotsu_karaage.jpg",
       category: "おつまみ",
     },
     {
       name: "カリカリタコ焼き",
       nameEn: "Fried Takoyaki",
       price: 480,
-      image: "/images/placeholder-food.svg",
+      image: "/images/karikari_takoyaki.jpg",
       category: "おつまみ",
     },
     {
@@ -425,7 +427,7 @@ const menuData = {
       name: "PON特製やきそば",
       nameEn: "Special Yakisoba",
       price: 850,
-      image: "/images/placeholder-food.svg",
+      image: "/images/pon_tokuseitaku_yakisoba.jpg",
       category: "おつまみ",
     },
   ],
@@ -440,6 +442,7 @@ export default function MenuPage() {
   })
 
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const colorScheme = getColorScheme()
@@ -464,11 +467,23 @@ export default function MenuPage() {
       setIsScrolled(window.scrollY > 50)
     }
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // 初期設定
+    handleResize()
+
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("resize", handleResize)
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
 
-  const MenuSection = ({ title, items, showImages = true }: { title: string; items: any[]; showImages?: boolean }) => (
+  const MenuSection = ({ title, items, showImages = true, categoryType }: { title: string; items: any[]; showImages?: boolean; categoryType: 'お食事' | 'ドリンク' | 'スイーツ' | '軽食' | 'おつまみ' }) => (
     <section className="mb-12">
       <h2 className="text-3xl font-bold mb-8 text-center pop-font" style={{ color: colors.accentColor }}>
         {title}
@@ -479,13 +494,21 @@ export default function MenuPage() {
             <CardContent className="p-4">
               {showImages && (
                 <div className="mb-4">
-                  <Image
-                    src={item.image || "/images/placeholder-food.svg"}
-                    alt={item.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-48 object-cover rounded-lg"
-                  />
+                  {item.image && !item.image.includes('placeholder') ? (
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={200}
+                      height={200}
+                      className="w-full h-48 object-cover rounded-lg"
+                    />
+                  ) : (
+                    <ImagePlaceholder 
+                      category={categoryType}
+                      itemName={item.name}
+                      className="w-full h-48"
+                    />
+                  )}
                 </div>
               )}
               <h3 className="font-bold text-lg mb-2 menu-item-name" style={{ color: colors.baseColor }}>
@@ -536,76 +559,99 @@ export default function MenuPage() {
         }}
       >
         <nav className="max-w-6xl mx-auto flex items-center justify-between">
-          <Logo size="md" />
-          <div className="flex items-center space-x-6">
-            <Link href="/" className="hover:opacity-80 font-medium pop-font" style={{ color: colors.baseTextColor }}>
-              HOME
-            </Link>
-            <Link
-              href="/menu"
-              className="hover:opacity-80 font-medium pop-font"
-              style={{ color: colors.baseTextColor }}
-            >
-              MENU
-            </Link>
-            <div className="flex items-center space-x-2">
-              <Instagram className="w-5 h-5 hover:opacity-80 cursor-pointer" style={{ color: colors.baseTextColor }} />
-              <XIcon className="w-5 h-5 hover:opacity-80 cursor-pointer" style={{ color: colors.baseTextColor }} />
+          <Logo size={isMobile ? "sm" : "md"} />
+          {isMobile ? (
+            // モバイル向けシンプルナビ
+            <div className="flex items-center space-x-3">
+              <Link href="/" className="hover:opacity-80 font-medium pop-font text-sm" style={{ color: colors.baseTextColor }}>
+                HOME
+              </Link>
+              <div className="flex items-center space-x-2">
+                <a
+                  href="https://www.instagram.com/cafe_pon_kandakaji3/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <Instagram className="w-4 h-4" style={{ color: colors.baseTextColor }} />
+                </a>
+                <a
+                  href="https://x.com/aenbien_pon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <XIcon className="w-4 h-4" style={{ color: colors.baseTextColor }} />
+                </a>
+              </div>
             </div>
-          </div>
+          ) : (
+            // デスクトップ向けフルナビ
+            <div className="flex items-center space-x-6">
+              <Link href="/" className="hover:opacity-80 font-medium pop-font" style={{ color: colors.baseTextColor }}>
+                HOME
+              </Link>
+              <Link
+                href="/menu"
+                className="hover:opacity-80 font-medium pop-font"
+                style={{ color: colors.baseTextColor }}
+              >
+                MENU
+              </Link>
+              <div className="flex items-center space-x-2">
+                <a
+                  href="https://www.instagram.com/cafe_pon_kandakaji3/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <Instagram className="w-5 h-5" style={{ color: colors.baseTextColor }} />
+                </a>
+                <a
+                  href="https://x.com/aenbien_pon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <XIcon className="w-5 h-5" style={{ color: colors.baseTextColor }} />
+                </a>
+              </div>
+            </div>
+          )}
         </nav>
       </header>
 
-      {/* Back Button */}
-      <div className="p-4 pt-24 relative z-10">
-        <Button
-          asChild
-          variant="ghost"
-          className="hover:bg-white/20 backdrop-blur-sm"
-          style={{ color: colors.baseTextColor, borderColor: colors.baseTextColor }}
-        >
-          <Link href="/">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            ホームに戻る
-          </Link>
-        </Button>
-      </div>
+      {/* Back Button - モバイルでは非表示 */}
+      {!isMobile && (
+        <div className="p-4 pt-24 relative z-10">
+          <Button
+            asChild
+            variant="ghost"
+            className="hover:bg-white/20 backdrop-blur-sm"
+            style={{ color: colors.baseTextColor, borderColor: colors.baseTextColor }}
+          >
+            <Link href="/">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              ホームに戻る
+            </Link>
+          </Button>
+        </div>
+      )}
 
       {/* Menu Content */}
-      <div className="px-4 pb-16 relative z-10">
+      <div className={`px-4 pb-16 relative z-10 ${isMobile ? 'pt-20' : ''}`}>
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-            <h1 className="text-4xl font-bold mb-12 text-center pop-font" style={{ color: colors.baseColor }}>
+          <div className={`bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg ${isMobile ? 'p-4' : 'p-8'}`}>
+            <h1 className={`font-bold text-center pop-font ${isMobile ? 'text-2xl mb-6' : 'text-4xl mb-12'}`} style={{ color: colors.baseColor }}>
               Menu
             </h1>
 
-            {/* フード（1番目） */}
-            <MenuSection title="お食事 / Food" items={menuData.food} showImages={true} />
+            {/* CMS連携メニュー - モバイルとデスクトップで切り替え */}
+            {/* CMS連携メニュー - PC版レスポンシブ表示（上部タブは維持） */}
+            <CMSMenu colors={colors} isMobile={isMobile} />
+            {/* 既存の静的メニュー（CMSデータがない場合のフォールバック内で表示） */}
 
-            {/* ドリンク（2番目） */}
-            <MenuSection title="ドリンク / Drinks" items={menuData.drinks} showImages={true} />
 
-            {/* スイーツ（3番目） */}
-            <MenuSection title="スイーツ / Sweets" items={sweets} showImages={true} />
-
-            {/* 軽食（4番目） */}
-            <MenuSection title="軽食 / Light Food" items={lightFood} showImages={true} />
-
-            {/* おつまみ（5番目） */}
-            <MenuSection title="おつまみ / Snacks" items={snacks} showImages={true} />
-
-            {/* Special Notice */}
-            <div
-              className="mt-12 p-6 rounded-lg text-center backdrop-blur-sm"
-              style={{ backgroundColor: colors.accentColor + "D9" }}
-            >
-              <h3 className="text-xl font-bold mb-2" style={{ color: colors.accentTextColor }}>
-                季節限定メニュー
-              </h3>
-              <p style={{ color: colors.accentTextColor }} className="text-sm">
-                季節ごとに特別なメニューをご用意しております。詳しくはスタッフまでお尋ねください。
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -617,8 +663,22 @@ export default function MenuPage() {
       >
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center space-x-6 mb-4">
-            <Instagram className="w-6 h-6 hover:opacity-80 cursor-pointer" style={{ color: colors.baseTextColor }} />
-            <XIcon className="w-6 h-6 hover:opacity-80 cursor-pointer" style={{ color: colors.baseTextColor }} />
+            <a
+              href="https://www.instagram.com/cafe_pon_kandakaji3/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+            >
+              <Instagram className="w-6 h-6" style={{ color: colors.baseTextColor }} />
+            </a>
+            <a
+              href="https://x.com/aenbien_pon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+            >
+              <XIcon className="w-6 h-6" style={{ color: colors.baseTextColor }} />
+            </a>
           </div>
           <p style={{ color: colors.baseTextColor }} className="text-sm">
             © 2024 Cafe PON. All rights reserved.

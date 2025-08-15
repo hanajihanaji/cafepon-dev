@@ -1,0 +1,18 @@
+/**
+ * TypeScript interfaces for image migration system
+ */
+
+const ErrorType = {
+  FILE_NOT_FOUND: 'FILE_NOT_FOUND',
+  NETWORK_ERROR: 'NETWORK_ERROR',
+  DUPLICATE_MEDIA: 'DUPLICATE_MEDIA',
+  INVALID_FORMAT: 'INVALID_FORMAT',
+  UPLOAD_FAILED: 'UPLOAD_FAILED',
+  UPDATE_FAILED: 'UPDATE_FAILED',
+  PERMISSION_ERROR: 'PERMISSION_ERROR',
+  SIZE_LIMIT_EXCEEDED: 'SIZE_LIMIT_EXCEEDED'
+};
+
+module.exports = {
+  ErrorType
+};
